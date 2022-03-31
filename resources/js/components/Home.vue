@@ -6,7 +6,7 @@
       <h3 v-if="user" class="px-3 py-3">Welcome {{user.name}}</h3>
     </div>
 
-    <div class="container justify-content-center align-items-center w-75 m-auto px-10">
+    <div class="d-flex container justify-content-center align-items-center w-100">
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showRegistration">Register User</button>
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateRole">Roles</button>
       <button v-if="user" class="btn btn-secondary m-3 p-10" @click="reload">Back to Home</button>

@@ -24,7 +24,7 @@
         </div>
       </form>
     </div>
-    <div class="d-flex justify-content-center flex-column align-items-center w-50" v-if="!showEditor">
+    <div class="d-flex justify-content-center flex-column align-items-center w-100" v-if="!showEditor">
         <table class="table w-50">
           <thead>
             <tr>
