@@ -8,13 +8,16 @@
       <form @submit.prevent="submitEdit">
         <div class="container w-50">
           <div class="col py-3">
-            <input type="text" v-model="currentUser.name" class="form-control" placeholder="Name">
+            <label for="editorFullName">Full Name</label>
+            <input type="text" id="editorFullName" v-model="currentUser.name" class="form-control" placeholder="Name">
           </div>
           <div class="col py-3">
-            <input type="email" v-model="currentUser.email" class="form-control" placeholder="Email">
+            <label for="editorEmail">Email</label>
+            <input type="email" id="editorEmail" v-model="currentUser.email" class="form-control" placeholder="Email">
           </div>
           <div class="col py-3">
-            <select name="role" class="form-select" v-model="currentUser.role_id">
+            <label for="editorRole">Role</label>
+            <select name="role" id="editorRole" class="form-select" v-model="currentUser.role_id">
               <option v-for="role in roles.data" v-bind:key="role.id" :value="role.id">{{ role.role_name }}</option>
             </select>
           </div>
@@ -24,7 +27,7 @@
         </div>
       </form>
     </div>
-    <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center" v-if="!showEditor">
       <span>
         <h3>List of Users</h3>
       </span>
