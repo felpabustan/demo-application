@@ -56,6 +56,7 @@ export default {
     },
     showCreateRole(){
       this.showAddRole = true;
+      this.showRegister = false;
     }
   }
 }
