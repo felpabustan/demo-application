@@ -29,7 +29,7 @@
         </div>
         <div class="col py-3">
           <label for="roleName">Role</label>
-          <select name="role" id="roleName" class="form-select" v-model="selected">
+          <select name="role" class="form-select" v-model="role_id">
             <option v-for="role in roles.data" v-bind:key="role.id" :value="role.id">{{ role.role_name }}</option>
           </select>
         </div>
@@ -48,7 +48,7 @@ export default {
       email: "",
       password: "",
       confirm_password: "",
-      selected: "",
+      role_id: "",
       roles: {
         data: []
       },
@@ -69,7 +69,7 @@ export default {
        email: this.email,
        password: this.password,
        confirm_password: this.password,
-       role_id: this.selected.role_id
+       role_id: this.role_id
      }).then((response)=>{
        alert('User created successfully!')
      }).then((response)=>{
