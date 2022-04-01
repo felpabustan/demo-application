@@ -93,6 +93,8 @@ export default {
       axios.delete(`/api/users/${user.id}`).then((response) => {
         this.getUsers();
         this.deleteAlert = true;
+      }).then((response)=>{
+         location.reload();
       })
     },
     editUser(user){
