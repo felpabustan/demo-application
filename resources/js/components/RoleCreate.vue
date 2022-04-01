@@ -4,10 +4,12 @@
       <form @submit.prevent="addRole()">
         <div class="container w-25">
           <div class="col py-3">
-            <input type="text" v-model="role_name" class="form-control" placeholder="Role Name">
+            <label for="roleName">Role Name</label>
+            <input type="text" id="roleName" v-model="role_name" class="form-control" placeholder="Role Name">
           </div>
           <div class="col py-3">
-            <input type="text" v-model="description" class="form-control" placeholder="Description">
+            <label for="roleDescription">Role Name</label>
+            <input type="text" id="roleDescription" v-model="description" class="form-control" placeholder="Description">
           </div>
           <div class="col py-3">
             <button class="btn btn-primary" type="submit">Save</button>

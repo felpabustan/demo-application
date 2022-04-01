@@ -3,28 +3,33 @@
     <form @submit.prevent="addUser()">
       <div class="container w-25">
         <div class="col py-3">
-          <input type="text" v-model="name" class="form-control" :class="{'is-invalid': errors.full_name.length}" placeholder="Full Name">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" v-model="name" class="form-control" :class="{'is-invalid': errors.full_name.length}">
           <div class="invalid-feedback" v-for="(error, index) in errors.full_name" :key="index">
            {{ error }}
           </div>
         </div>
         <div class="col py-3">
-          <input type="email" v-model="email" class="form-control" :class="{'is-invalid': errors.email.length}" placeholder="Email">
+          <label for="email">Email</label>
+          <input type="email" id="email" v-model="email" class="form-control" :class="{'is-invalid': errors.email.length}">
           <div class="invalid-feedback" v-for="(error, index) in errors.email" :key="index">
            {{ error }}
           </div>
         </div>
         <div class="col py-3">
-          <input type="password" v-model="password" class="form-control" :class="{'is-invalid': errors.password.length}" placeholder="Password">
+          <label for="password">Password</label>
+          <input type="password" id="password" v-model="password" class="form-control" :class="{'is-invalid': errors.password.length}">
            <div class="invalid-feedback" v-for="(error, index) in errors.password" :key="index">
             {{ error }}
           </div>
         </div>
         <div class="col py-3">
-          <input type="password" v-model="confirm_password" class="form-control" placeholder="Confirm Password">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" v-model="confirm_password" class="form-control">
         </div>
         <div class="col py-3">
-          <select name="role" id="" class="form-select" v-model="selected">
+          <label for="roleName">Role</label>
+          <select name="role" id="roleName" class="form-select" v-model="selected">
             <option v-for="role in roles.data" v-bind:key="role.id" :value="role.id">{{ role.role_name }}</option>
           </select>
         </div>

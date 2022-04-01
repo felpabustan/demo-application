@@ -24,6 +24,11 @@
         </div>
       </form>
     </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <span>
+        <h3>List of Users</h3>
+      </span>
+    </div>
     <div class="d-flex justify-content-center flex-column align-items-center w-100" v-if="!showEditor">
         <table class="table w-50">
           <thead>
