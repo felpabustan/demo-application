@@ -1,11 +1,5 @@
 <template>
    <div class="d-flex justify-content-center flex-column align-items-center">
-    <nav class="navbar navbar-light bg-light">
-      <form class="container-fluid justify-content-start">
-        <button class="btn btn-outline-success" type="button">Users</button>
-        <button class="btn btn-outline-success" type="button">Roles</button>
-      </form>
-    </nav>
     <table class="table w-25">
       <thead>
         <tr>

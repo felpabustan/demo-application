@@ -3,7 +3,7 @@
     <login v-if="!user"></login>
 
     <div class="d-flex justify-content-center flex-column align-items-center">
-      <h3 v-if="user" class="px-3 py-3">Welcome {{user.name}}</h3>
+      <h2 v-if="user" class="px-3 py-3">Welcome {{user.name}}</h2>
     </div>
 
     <div class="d-flex container justify-content-center align-items-center w-100">

@@ -4,7 +4,7 @@
       User deleted successfully!
     </div>
     <div class="container" v-if="showEditor">
-      <h1 class="d-flex justify-content-center flex-column align-items-center">Edit User</h1>
+      <h3 class="d-flex justify-content-center flex-column align-items-center">Edit User</h3>
       <form @submit.prevent="submitEdit">
         <div class="container w-50">
           <div class="col py-3">
