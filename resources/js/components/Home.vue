@@ -7,10 +7,10 @@
     </div>
 
     <div class="d-flex container justify-content-center align-items-center w-100">
-      <button v-if="user" class="btn btn-secondary m-3 p-10" @click="reload">Home</button>
+      <button v-if="user" class="btn btn-outline-success m-3 p-10" @click="reload">Home</button>
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showRegistration">Register User</button>
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateRole">Roles</button>
-      <button v-if="user" class="btn btn-secondary m-3 p-10" @click="logout">Logout</button>
+      <button v-if="user" class="btn btn-outline-dark m-3 p-10" @click="logout">Logout</button>
     </div>
     
     <user v-if="user && !showRegister && !showAddRole"></user>
