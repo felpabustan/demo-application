@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('department_id');
+            $table->string('employee_name');
+            $table->string('contact_number');
+            $table->string('email');
             $table->timestamps();
         });
     }
