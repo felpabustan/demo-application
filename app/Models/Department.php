@@ -14,4 +14,9 @@ class Department extends Model
     public function user(){
         return $this->hasOne(User::class , 'user_id');
     }
+    
+    public function employee()
+    {
+        return $this->hasOne(Employee::class, 'employee_id');
+    }
 }

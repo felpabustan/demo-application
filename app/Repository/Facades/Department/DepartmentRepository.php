@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Facades\Deparment;
+namespace App\Repository\Facades\Department;
 
 
 use App\Repository\Contracts\Department\DepartmentRepositoryContract;
