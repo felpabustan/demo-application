@@ -22,6 +22,12 @@
             </select>
           </div>
           <div class="col py-3">
+            <label >Department</label>
+            <select name="department" id="editorDepartment" class="form-select" v-model="currentUser.department_id">
+              <option v-for="department in departments.data" v-bind:key="department.id" >{{ department.deparment_name }}</option>
+            </select>
+          </div>
+          <div class="col py-3">
             <button class="btn btn-primary" type="submit">Save</button>
           </div>
         </div>
@@ -38,7 +44,7 @@
             <tr>
               <th scope="col">Full Name</th>
               <th scope="col">Email</th>
-              <th scope="col">Role</th>
+              <th scope="col">Department</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -48,7 +54,7 @@
             >
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ user.role?user.role.role_name:"" }}</td>
+              <td>{{ user.department?user.department.deparment_name:"" }}</td>
               <td>
                 <button class="btn btn-primary" @click="editUser(user)">edit</button>
                 <button class="btn btn-danger" @click="deleteUser(user)">
@@ -76,6 +82,9 @@ export default {
       roles: {
         data: []
       },
+      departments: {
+        data: []
+      },
       deleteAlert: false,
       showEditor: false,
       currentUser: null
@@ -84,6 +93,7 @@ export default {
   mounted(){
     this.getUsers();
     this.getRoles();
+    this.getDepartments();
   },
   methods:{
     getUsers() {
@@ -107,6 +117,12 @@ export default {
     getRoles(){
       axios.get('/api/roles').then((response) =>{
         this.roles = response.data;
+      })
+    },
+    getDepartments(){
+      axios.get('/api/departments').then((response) => {
+        console.log(response.data);
+        this.departments = response.data;
       })
     },
     submitEdit(){

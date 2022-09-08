@@ -23,7 +23,7 @@ Vue.component('home', require('./components/Home.vue').default);
 Vue.component('login', require('./components/Login.vue').default);
 Vue.component('user', require('./components/User.vue').default);
 Vue.component('role', require('./components/Role.vue').default);
-
+Vue.component('department', require('./components/CreateDepartment.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
