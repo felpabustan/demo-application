@@ -28,9 +28,9 @@
           <input type="password" id="confirmPassword" v-model="confirm_password" class="form-control">
         </div>
         <div class="col py-3">
-          <label for="roleName">Role</label>
-          <select name="role" class="form-select" v-model="role_id">
-            <option v-for="role in roles.data" v-bind:key="role.id" :value="role.id">{{ role.role_name }}</option>
+          <label for="departmentName">Department</label>
+          <select name="department" class="form-select" v-model="department_id">
+            <option v-for="department in departments.data" v-bind:key="department.id" :value="department.id">{{ department.department_name }}</option>
           </select>
         </div>
         <div class="col py-3">
@@ -49,7 +49,11 @@ export default {
       password: "",
       confirm_password: "",
       role_id: "",
+      department_id: "",
       roles: {
+        data: []
+      },
+      departments: {
         data: []
       },
       errors:{
@@ -61,6 +65,7 @@ export default {
   },
   mounted(){
     this.getRoles();
+    this.getDepartments();
   },
   methods:{
     addUser(){
@@ -69,7 +74,7 @@ export default {
        email: this.email,
        password: this.password,
        confirm_password: this.password,
-       role_id: this.role_id
+       department_id: this.department_id
      }).then((response)=>{
        alert('User created successfully!')
      }).then((response)=>{
@@ -85,6 +90,11 @@ export default {
     getRoles(){
       axios.get('/api/roles').then((response) =>{
         this.roles = response.data;
+      })
+    },
+    getDepartments(){
+      axios.get('/api/departments').then((response) => {
+        this.departments = response.data;
       })
     }
   }

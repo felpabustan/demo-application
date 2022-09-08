@@ -8,16 +8,15 @@
 
     <div class="d-flex container justify-content-center align-items-center w-100 ">
       <button v-if="user" class="btn btn-outline-success m-3 p-10" @click="reload">Home</button>
-      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showRegistration">Register User</button>
-      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateRole">Department</button>
-      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateDepartment">Roles</button>
+      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showRegistration">Add Employee</button>
+      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateDepartment">Department</button>
       <button v-if="user" class="btn btn-outline-dark m-3 p-10" @click="logout">Logout</button>
     </div>
     
-    <user v-if="user && !showRegister && !showAddRole"></user>
+    <user v-if="user && !showRegister && !showAddRole && !showAddDepartment"></user>
     <user-create v-if="showRegister"></user-create>
     <role-create v-if="showAddRole && !showRegister"></role-create>
-    <create-department></create-department>
+    <create-department v-if="showAddDepartment && !showAddRole && !showRegister"></create-department>
 </div>
 </template>
 <script>
@@ -63,6 +62,7 @@ export default {
       this.showRegister = false;
     },
     showCreateDepartment(){
+      this.showRegister = false;
       this.showAddDepartment = true;
     }
   }

@@ -101,7 +101,7 @@ export default {
       })
     },
     showTable(){
-      this.showRoletable = true
+      this.showRoleTable = true
     },
     showCreateForm(){
       this.showCreateRole = true

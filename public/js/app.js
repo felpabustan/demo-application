@@ -5426,7 +5426,7 @@ __webpack_require__.r(__webpack_exports__);
         data: []
       },
       errors: {
-        role_name: [],
+        department_name: [],
         description: []
       },
       department_name: "",
@@ -5441,51 +5441,36 @@ __webpack_require__.r(__webpack_exports__);
     this.getDepartments();
   },
   methods: {
-    addRole: function addRole() {
+    getDepartments: function getDepartments() {
       var _this = this;
 
-      axios.post('/api/roles', {
+      axios.get('/api/departments').then(function (response) {
+        _this.departments = response.data;
+      });
+    },
+    addDepartment: function addDepartment() {
+      var _this2 = this;
+
+      axios.post('/api/departments', {
         department_name: this.department_name,
         description: this.description
       }).then(function (response) {
-        alert('Role created successfully');
+        console.log(response);
+        alert('Department added successfully');
       }).then(function (response) {
         location.reload();
       })["catch"](function (err) {
         var e = err.response.data;
-        _this.errors.role_name = e.role_name ? e.role_name : [];
-        _this.errors.description = e.role_name ? e.role_name : [];
+        _this2.errors.department_name = e.department_name ? e.department_name : [];
+        _this2.errors.description = e.description ? e.description : [];
       });
     },
-    editDepartment: function editDepartment(department) {
-      this.showCreateDepartment = true;
-      this.department_name = department.department_name;
-      this.description = department.description;
-    },
-    deleteDepartment: function deleteDepartment(department) {
-      var _this2 = this;
-
-      axios["delete"]("/api/departments/".concat(department.id)).then(function (response) {
-        _this2.getDepartments();
-
-        alert('Department deleted.');
-      });
-    },
-    showTable: function showTable() {
-      this.showDepartmentTable = true;
-    },
-    showCreateForm: function showCreateForm() {
+    showForm: function showForm() {
       this.showCreateDepartment = true;
       this.department_name = "";
       this.description = "";
     },
-    getDepartments: function getDepartments() {
-      var _this3 = this;
-
-      axios.get('/api/departments').then(function (response) {
-        _this3.departments = response.data;
-      });
-    }
+    showEditor: function showEditor() {}
   }
 });
 
@@ -5506,7 +5491,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _User_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./User.vue */ "./resources/js/components/User.vue");
 /* harmony import */ var _UserCreate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./UserCreate.vue */ "./resources/js/components/UserCreate.vue");
 /* harmony import */ var _CreateDepartment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./CreateDepartment */ "./resources/js/components/CreateDepartment.vue");
-//
 //
 //
 //
@@ -5579,6 +5563,7 @@ __webpack_require__.r(__webpack_exports__);
       this.showRegister = false;
     },
     showCreateDepartment: function showCreateDepartment() {
+      this.showRegister = false;
       this.showAddDepartment = true;
     }
   }
@@ -5597,6 +5582,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5827,7 +5818,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     showTable: function showTable() {
-      this.showRoletable = true;
+      this.showRoleTable = true;
     },
     showCreateForm: function showCreateForm() {
       this.showCreateRole = true;
@@ -5858,6 +5849,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6005,6 +6004,8 @@ __webpack_require__.r(__webpack_exports__);
 
         _this5.currentUser = null;
         _this5.showEditor = false;
+      }).then(function (response) {
+        alert('User details updated');
       });
     }
   }
@@ -6073,7 +6074,11 @@ __webpack_require__.r(__webpack_exports__);
       password: "",
       confirm_password: "",
       role_id: "",
+      department_id: "",
       roles: {
+        data: []
+      },
+      departments: {
         data: []
       },
       errors: {
@@ -6085,6 +6090,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.getRoles();
+    this.getDepartments();
   },
   methods: {
     addUser: function addUser() {
@@ -6095,7 +6101,7 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password,
         confirm_password: this.password,
-        role_id: this.role_id
+        department_id: this.department_id
       }).then(function (response) {
         alert('User created successfully!');
       }).then(function (response) {
@@ -6113,6 +6119,13 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get('/api/roles').then(function (response) {
         _this2.roles = response.data;
+      });
+    },
+    getDepartments: function getDepartments() {
+      var _this3 = this;
+
+      axios.get('/api/departments').then(function (response) {
+        _this3.departments = response.data;
       });
     }
   }
@@ -29170,7 +29183,7 @@ var render = function () {
       staticClass: "py-3 justify-content-center flex-column align-items-center",
     },
     [
-      _vm.showCreateRole
+      _vm.showCreateDepartment
         ? _c(
             "div",
             {
@@ -29214,7 +29227,7 @@ var render = function () {
                           attrs: {
                             type: "text",
                             id: "departmentName",
-                            placeholder: "Role Name",
+                            placeholder: "Department Name",
                           },
                           domProps: { value: _vm.department_name },
                           on: {
@@ -29323,7 +29336,7 @@ var render = function () {
               "tbody",
               _vm._l(_vm.departments.data, function (department) {
                 return _c("tr", { key: department.id }, [
-                  _c("td", [_vm._v(_vm._s(department.deparment_name))]),
+                  _c("td", [_vm._v(_vm._s(department.department_name))]),
                   _vm._v(" "),
                   _c("td", [_vm._v(_vm._s(department.description))]),
                   _vm._v(" "),
@@ -29362,10 +29375,7 @@ var render = function () {
           _vm._v(" "),
           _c(
             "button",
-            {
-              staticClass: "btn btn-secondary",
-              on: { click: _vm.showCreateForm },
-            },
+            { staticClass: "btn btn-secondary", on: { click: _vm.showForm } },
             [_vm._v("Create New Department")]
           ),
         ]
@@ -29468,18 +29478,7 @@ var render = function () {
                   staticClass: "btn btn-primary m-3 p-10",
                   on: { click: _vm.showRegistration },
                 },
-                [_vm._v("Register User")]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.user
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary m-3 p-10",
-                  on: { click: _vm.showCreateRole },
-                },
-                [_vm._v("Department")]
+                [_vm._v("Add Employee")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -29490,7 +29489,7 @@ var render = function () {
                   staticClass: "btn btn-primary m-3 p-10",
                   on: { click: _vm.showCreateDepartment },
                 },
-                [_vm._v("Roles")]
+                [_vm._v("Department")]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -29507,13 +29506,20 @@ var render = function () {
         ]
       ),
       _vm._v(" "),
-      _vm.user && !_vm.showRegister && !_vm.showAddRole ? _c("user") : _vm._e(),
+      _vm.user &&
+      !_vm.showRegister &&
+      !_vm.showAddRole &&
+      !_vm.showAddDepartment
+        ? _c("user")
+        : _vm._e(),
       _vm._v(" "),
       _vm.showRegister ? _c("user-create") : _vm._e(),
       _vm._v(" "),
       _vm.showAddRole && !_vm.showRegister ? _c("role-create") : _vm._e(),
       _vm._v(" "),
-      _c("create-department"),
+      _vm.showAddDepartment && !_vm.showAddRole && !_vm.showRegister
+        ? _c("create-department")
+        : _vm._e(),
     ],
     1
   )
@@ -29548,7 +29554,41 @@ var render = function () {
       staticStyle: { width: "500px" },
     },
     [
-      _c("h4", [_vm._v("RedCore Assessment Login")]),
+      _c("h4", [
+        _vm._v("ipsum"),
+        _c(
+          "svg",
+          {
+            staticClass: "icon icon-tabler icon-tabler-key",
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              width: "24",
+              height: "24",
+              viewBox: "0 0 24 24",
+              "stroke-width": "2",
+              stroke: "currentColor",
+              fill: "none",
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+            },
+          },
+          [
+            _c("path", {
+              attrs: { stroke: "none", d: "M0 0h24v24H0z", fill: "none" },
+            }),
+            _vm._v(" "),
+            _c("circle", { attrs: { cx: "8", cy: "15", r: "4" } }),
+            _vm._v(" "),
+            _c("line", {
+              attrs: { x1: "10.85", y1: "12.15", x2: "19", y2: "4" },
+            }),
+            _vm._v(" "),
+            _c("line", { attrs: { x1: "18", y1: "5", x2: "20", y2: "7" } }),
+            _vm._v(" "),
+            _c("line", { attrs: { x1: "15", y1: "8", x2: "17", y2: "10" } }),
+          ]
+        ),
+      ]),
       _vm._v(" "),
       _c(
         "form",
@@ -30124,55 +30164,6 @@ var render = function () {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col py-3" }, [
-                    _c("label", { attrs: { for: "editorRole" } }, [
-                      _vm._v("Role"),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.currentUser.role_id,
-                            expression: "currentUser.role_id",
-                          },
-                        ],
-                        staticClass: "form-select",
-                        attrs: { name: "role", id: "editorRole" },
-                        on: {
-                          change: function ($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function (o) {
-                                return o.selected
-                              })
-                              .map(function (o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.currentUser,
-                              "role_id",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          },
-                        },
-                      },
-                      _vm._l(_vm.roles.data, function (role) {
-                        return _c(
-                          "option",
-                          { key: role.id, domProps: { value: role.id } },
-                          [_vm._v(_vm._s(role.role_name))]
-                        )
-                      }),
-                      0
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col py-3" }, [
                     _c("label", [_vm._v("Department")]),
                     _vm._v(" "),
                     _c(
@@ -30210,7 +30201,7 @@ var render = function () {
                       },
                       _vm._l(_vm.departments.data, function (department) {
                         return _c("option", { key: department.id }, [
-                          _vm._v(_vm._s(department.deparment_name)),
+                          _vm._v(_vm._s(department.department_name)),
                         ])
                       }),
                       0
@@ -30255,7 +30246,7 @@ var render = function () {
                         _vm._v(
                           _vm._s(
                             user.department
-                              ? user.department.deparment_name
+                              ? user.department.department_name
                               : ""
                           )
                         ),
@@ -30272,7 +30263,49 @@ var render = function () {
                               },
                             },
                           },
-                          [_vm._v("edit")]
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass:
+                                  "icon icon-tabler icon-tabler-edit",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  width: "24",
+                                  height: "24",
+                                  viewBox: "0 0 24 24",
+                                  "stroke-width": "2",
+                                  stroke: "currentColor",
+                                  fill: "none",
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                },
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    stroke: "none",
+                                    d: "M0 0h24v24H0z",
+                                    fill: "none",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d: "M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d: "M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("path", { attrs: { d: "M16 5l3 3" } }),
+                              ]
+                            ),
+                          ]
                         ),
                         _vm._v(" "),
                         _c(
@@ -30285,7 +30318,74 @@ var render = function () {
                               },
                             },
                           },
-                          [_vm._v("\n                delete\n              ")]
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass:
+                                  "icon icon-tabler icon-tabler-trash",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  width: "24",
+                                  height: "24",
+                                  viewBox: "0 0 24 24",
+                                  "stroke-width": "2",
+                                  stroke: "currentColor",
+                                  fill: "none",
+                                  "stroke-linecap": "round",
+                                  "stroke-linejoin": "round",
+                                },
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    stroke: "none",
+                                    d: "M0 0h24v24H0z",
+                                    fill: "none",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("line", {
+                                  attrs: {
+                                    x1: "4",
+                                    y1: "7",
+                                    x2: "20",
+                                    y2: "7",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("line", {
+                                  attrs: {
+                                    x1: "10",
+                                    y1: "11",
+                                    x2: "10",
+                                    y2: "17",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("line", {
+                                  attrs: {
+                                    x1: "14",
+                                    y1: "11",
+                                    x2: "14",
+                                    y2: "17",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d: "M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12",
+                                  },
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d: "M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3",
+                                  },
+                                }),
+                              ]
+                            ),
+                          ]
                         ),
                       ]),
                     ])
@@ -30316,7 +30416,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("span", [_c("h3", [_vm._v("List of Users")])])
+    return _c("span", [_c("h3", [_vm._v("List of Employees")])])
   },
   function () {
     var _vm = this
@@ -30528,7 +30628,9 @@ var render = function () {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "col py-3" }, [
-              _c("label", { attrs: { for: "roleName" } }, [_vm._v("Role")]),
+              _c("label", { attrs: { for: "departmentName" } }, [
+                _vm._v("Department"),
+              ]),
               _vm._v(" "),
               _c(
                 "select",
@@ -30537,12 +30639,12 @@ var render = function () {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.role_id,
-                      expression: "role_id",
+                      value: _vm.department_id,
+                      expression: "department_id",
                     },
                   ],
                   staticClass: "form-select",
-                  attrs: { name: "role" },
+                  attrs: { name: "department" },
                   on: {
                     change: function ($event) {
                       var $$selectedVal = Array.prototype.filter
@@ -30553,17 +30655,17 @@ var render = function () {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.role_id = $event.target.multiple
+                      _vm.department_id = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     },
                   },
                 },
-                _vm._l(_vm.roles.data, function (role) {
+                _vm._l(_vm.departments.data, function (department) {
                   return _c(
                     "option",
-                    { key: role.id, domProps: { value: role.id } },
-                    [_vm._v(_vm._s(role.role_name))]
+                    { key: department.id, domProps: { value: department.id } },
+                    [_vm._v(_vm._s(department.department_name))]
                   )
                 }),
                 0

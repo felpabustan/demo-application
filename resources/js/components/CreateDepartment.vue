@@ -1,11 +1,11 @@
 <template>
   <div class="py-3 justify-content-center flex-column align-items-center">
-    <div class="py-3 justify-content-center flex-column align-items-center" v-if="showCreateRole">
+    <div class="py-3 justify-content-center flex-column align-items-center" v-if="showCreateDepartment">
       <form @submit.prevent="addDepartment()">
         <div class="container w-25">
           <div class="col py-3">
             <label for="departmentName">Department Name</label>
-            <input type="text" id="departmentName" v-model="department_name" class="form-control" :class="{'is-invalid': errors.department_name.length}" placeholder="Role Name">
+            <input type="text" id="departmentName" v-model="department_name" class="form-control" :class="{'is-invalid': errors.department_name.length}" placeholder="Department Name">
             <div class="invalid-feedback" v-for="(error, index) in errors.department_name" :key="index">
               {{ error }}
             </div>
@@ -36,7 +36,7 @@
         <tr
             v-for="department in departments.data" :key="department.id"
         >
-          <td>{{ department.deparment_name }}</td>
+          <td>{{ department.department_name }}</td>
           <td>{{ department.description }}</td>
           <td>
             <button class="btn btn-primary" @click="editDepartment(department)">edit</button>
@@ -45,7 +45,7 @@
         </tr>
         </tbody>
       </table>
-      <button class="btn btn-secondary" @click="showCreateForm">Create New Department</button>
+      <button class="btn btn-secondary" @click="showForm">Create New Department</button>
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@ export default {
         data:[]
       },
       errors:{
-        role_name:[],
+        department_name:[],
         description:[]
       },
       department_name: "",
@@ -72,44 +72,34 @@ export default {
     this.getDepartments();
   },
   methods:{
-    addRole(){
-      axios.post('/api/roles', {
+    getDepartments(){
+      axios.get('/api/departments').then((response) => {
+        this.departments = response.data
+      })
+    },
+    addDepartment() {
+      axios.post('/api/departments',{
         department_name: this.department_name,
         description: this.description
-      }).then((response)=>{
-        alert('Role created successfully')
-      }).then((response)=>{
+      }).then((response) => {
+        console.log(response)
+        alert('Department added successfully')
+      }).then((response) => {
         location.reload()
-      }).catch((err)=>{
+      }).catch((err) => {
         let e = err.response.data
-        this.errors.role_name = e.role_name ? e.role_name : []
-        this.errors.description = e.role_name ? e.role_name :[]
+        this.errors.department_name = e.department_name ? e.department_name: []
+        this.errors.description = e.description ? e.description: []
       })
     },
-    editDepartment(department){
-      this.showCreateDepartment = true
-      this.department_name = department.department_name
-      this.description = department.description
-    },
-    deleteDepartment(department){
-      axios.delete(`/api/departments/${department.id}`).then((response)=>{
-        this.getDepartments()
-        alert('Department deleted.')
-      })
-    },
-    showTable(){
-      this.showDepartmentTable = true
-    },
-    showCreateForm(){
+    showForm(){
       this.showCreateDepartment = true
       this.department_name = ""
       this.description = ""
     },
-    getDepartments(){
-      axios.get('/api/departments').then((response) =>{
-        this.departments = response.data;
-      })
-    },
+    showEditor(){
+
+    }
   }
 }
 </script>

@@ -1,6 +1,12 @@
 <template>
 <div class="container w-30 px-3 py-5 align-items-center" style="width: 500px;">
-  <h4>RedCore Assessment Login</h4>
+  <h4>ipsum<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-key" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+    <circle cx="8" cy="15" r="4"></circle>
+    <line x1="10.85" y1="12.15" x2="19" y2="4"></line>
+    <line x1="18" y1="5" x2="20" y2="7"></line>
+    <line x1="15" y1="8" x2="17" y2="10"></line>
+  </svg></h4>
   <form @submit.prevent="login">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>

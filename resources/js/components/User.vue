@@ -16,15 +16,9 @@
             <input type="email" id="editorEmail" v-model="currentUser.email" class="form-control" placeholder="Email">
           </div>
           <div class="col py-3">
-            <label for="editorRole">Role</label>
-            <select name="role" id="editorRole" class="form-select" v-model="currentUser.role_id">
-              <option v-for="role in roles.data" v-bind:key="role.id" :value="role.id">{{ role.role_name }}</option>
-            </select>
-          </div>
-          <div class="col py-3">
             <label >Department</label>
             <select name="department" id="editorDepartment" class="form-select" v-model="currentUser.department_id">
-              <option v-for="department in departments.data" v-bind:key="department.id" >{{ department.deparment_name }}</option>
+              <option v-for="department in departments.data" v-bind:key="department.id" >{{ department.department_name }}</option>
             </select>
           </div>
           <div class="col py-3">
@@ -35,7 +29,7 @@
     </div>
     <div class="d-flex justify-content-center align-items-center" v-if="!showEditor">
       <span>
-        <h3>List of Users</h3>
+        <h3>List of Employees</h3>
       </span>
     </div>
     <div class="d-flex justify-content-center flex-column align-items-center w-100" v-if="!showEditor">
@@ -54,11 +48,25 @@
             >
               <td>{{ user.name }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ user.department?user.department.deparment_name:"" }}</td>
+              <td>{{ user.department?user.department.department_name:"" }}</td>
               <td>
-                <button class="btn btn-primary" @click="editUser(user)">edit</button>
+                <button class="btn btn-primary" @click="editUser(user)">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                    <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                    <path d="M16 5l3 3"></path>
+                  </svg>
+                </button>
                 <button class="btn btn-danger" @click="deleteUser(user)">
-                  delete
+                  <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <line x1="4" y1="7" x2="20" y2="7"></line>
+                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                    <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                    <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                  </svg>
                 </button>
               </td>
             </tr>
@@ -130,10 +138,12 @@ export default {
         full_name: this.currentUser.name,
         email: this.currentUser.email,
         role_id: this.currentUser.role_id
-      }).then((response)=>{    
+      }).then((response)=>{
         this.getUsers()
         this.currentUser = null
         this.showEditor = false
+      }).then((response) => {
+        alert('User details updated')
       })
     }
   }
