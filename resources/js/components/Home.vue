@@ -10,6 +10,7 @@
       <button v-if="user" class="btn btn-outline-success m-3 p-10" @click="reload">Home</button>
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showRegistration">Add Employee</button>
       <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateDepartment">Department</button>
+      <button v-if="user" class="btn btn-primary m-3 p-10" @click="showCreateEmployeeRecord">Create Employee Record</button>
       <button v-if="user" class="btn btn-outline-dark m-3 p-10" @click="logout">Logout</button>
     </div>
     
@@ -17,6 +18,7 @@
     <user-create v-if="showRegister"></user-create>
     <role-create v-if="showAddRole && !showRegister"></role-create>
     <create-department v-if="showAddDepartment && !showAddRole && !showRegister"></create-department>
+    <add-employee v-if="showAddEmployee &&!showAddDepartment && !showAddRole && !showRegister"></add-employee>
 </div>
 </template>
 <script>
@@ -24,15 +26,17 @@ import RoleCreate from './RoleCreate.vue'
 import User from './User.vue'
 import UserCreate from './UserCreate.vue'
 import CreateDepartment from './CreateDepartment';
+import AddEmployee from './AddEmployee';
 export default {
-  components: { User, UserCreate, RoleCreate, CreateDepartment },
+  components: { User, UserCreate, RoleCreate, CreateDepartment, AddEmployee},
   data(){
     return{
       user : null,
       showRegister: false,
       assignRoles: false,
       showAddRole: false,
-      showAddDepartment: false
+      showAddDepartment: false,
+      showAddEmployee: false
     }
   },
   mounted(){
@@ -64,6 +68,11 @@ export default {
     showCreateDepartment(){
       this.showRegister = false;
       this.showAddDepartment = true;
+    },
+    showCreateEmployeeRecord() {
+      this.showRegister = false;
+      this.showAddDepartment = false;
+      this.showAddEmployee = true;
     }
   }
 }

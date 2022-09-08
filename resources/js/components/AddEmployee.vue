@@ -41,7 +41,45 @@
 export default {
   data(){
     return {
-      name: ""
+      name: "",
+      contact_number: "",
+      email: "",
+      department_id: "",
+      departments: {
+        data: []
+      },
+      errors: {
+        name: [],
+        contact_number: [],
+        email: [],
+      }
+    }
+  },
+  mounted(){
+    this.getDepartments();
+  },
+  methods: {
+    addEmployee() {
+      axios.post('/api/employees', {
+        name: this.name,
+        contact_number: this.contact_number,
+        email: this.email,
+        department_id: this.department_id
+      }).then((response) => {
+        alert('Employee added')
+      }).then((response) => {
+        location.reload()
+      }).catch((err) => {
+        let e = err.response.data.errors
+        this.errors.name = e.name ? e.name : []
+        this.errors.contact_number = e.contact_number ? e.contact_number : []
+        this.errors.email = e.email ? e.email : []
+      })
+    },
+    getDepartments() {
+      axios.get('/api/departments').then((response) => {
+        this.departments = response.data;
+      })
     }
   }
 };

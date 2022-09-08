@@ -80,7 +80,6 @@ export default {
      }).then((response)=>{
        location.reload()
      }).catch((err)=>{
-       console.log(err.response.data)
        let e = err.response.data.errors
        this.errors.full_name = e.full_name ? e.full_name : []
        this.errors.email = e.email ? e.email : []
